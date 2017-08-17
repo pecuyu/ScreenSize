@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -38,50 +39,47 @@ public class DistanceTouchView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int pointerCount = 0;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-
+                calcDistanceAndInvalidate(event);
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                pointerCount = event.getPointerCount();
-                if (pointerCount >= 2) {
-                    firstPoint.x =event.getX(0);
-                    firstPoint.y = event.getY(0);
-                    secondPoint.x =  event.getX(1);
-                    secondPoint.y = event.getY(1);
-                    float dx = Math.abs(firstPoint.x - secondPoint.x);
-                    float dy = Math.abs(firstPoint.y - secondPoint.y);
-                    distance = Math.sqrt(dx * dx + dy * dy);
-                    LogUtil.e("TAG", "distance="+distance);
-                    invalidate();
-                }
+                calcDistanceAndInvalidate(event);
                 break;
             case MotionEvent.ACTION_MOVE:
-                pointerCount = event.getPointerCount();
-                if (pointerCount >= 2) {
-                    firstPoint.x =event.getX(0);
-                    firstPoint.y = event.getY(0);
-                    secondPoint.x =  event.getX(1);
-                    secondPoint.y = event.getY(1);
-                    float dx = Math.abs(firstPoint.x - secondPoint.x);
-                    float dy = Math.abs(firstPoint.y - secondPoint.y);
-                    distance = Math.sqrt(dx * dx + dy * dy);
-                    LogUtil.e("TAG", "distance="+distance);
-                    invalidate();
-                }
+                calcDistanceAndInvalidate(event);
                 break;
             case MotionEvent.ACTION_UP:
+                calcDistanceAndInvalidate(event);
                 break;
         }
-
-
         return true;
+    }
+
+    /**
+     * 计算距离并刷新
+     * @param event
+     */
+    private void calcDistanceAndInvalidate(MotionEvent event) {
+        int pointerCount = event.getPointerCount();
+        if (pointerCount >= 2) {
+            firstPoint.x =event.getX(0);
+            firstPoint.y = event.getY(0);
+            secondPoint.x =  event.getX(1);
+            secondPoint.y = event.getY(1);
+            float dx = Math.abs(firstPoint.x - secondPoint.x);
+            float dy = Math.abs(firstPoint.y - secondPoint.y);
+            distance = Math.sqrt(dx * dx + dy * dy);
+            LogUtil.e("TAG", "distance="+distance);
+            invalidate();
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        // 绘制文本
         canvas.drawText("distance=" + distance, 100, 200, paint);
+        SystemClock.sleep(10);
     }
 }
