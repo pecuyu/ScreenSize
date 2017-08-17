@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yu.screensize.MainActivity">
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingTop="60dp">
 
     <TextView
+        android:id="@+id/id_tv_width_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_above="@+id/id_tv_height_size"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="width"
+        android:textSize="25sp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/id_tv_height_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/id_tv_dpi_size"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="height"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/id_tv_dpi_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:text="dpi"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/id_tv_density_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_tv_dpi_size"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="density"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/id_tv_real_width_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_tv_dpi_size"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="real_width"
+        android:textSize="25sp" />
+    <TextView
+        android:id="@+id/id_tv_real_height_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="real_height"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btn_refetch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="refetchSize"
+        android:text="重新获取" />
+    <Button
+        android:id="@+id/btn_calc_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="calcDistance"
+        android:text="测距" />
+</LinearLayout>
